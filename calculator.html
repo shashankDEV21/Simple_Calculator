@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+</head>
+<body>
+    <div class="inputStyle">
+        Number1 <input type="text" id="num1" placeholder="Enter first number">
+        Number2 <input type="text" id="num2" placeholder="Enter second number">
+    </div>
+        <br/><br/>
+        <button class="buttonStyle" onclick="add()">+</button>
+        <button class="buttonStyle" onclick="sub()">-</button>
+        <button class="buttonStyle" onclick="mult()">*</button>
+        <button class="buttonStyle" onclick="div()">/</button>
+        <br/><br/>
+        result: <input type="text" id="result">
+        <br/><br/>
+        <button class="buttonStyle" onclick="clearfun()">Clear</button>
+      <script>
+      function add(){
+        
+     let a=document.getElementById('num1').value
+     
+     let b=document.getElementById('num2').value
+     
+     if(isNaN(a)||isNaN(b)||a===''||b===''){
+         alert("Please Enter Number")
+         clearfun()
+         return 
+     }
+     let data ={
+         x: a,
+         y: b
+     }
+     console.log("data is "+ data.x)
+     fetch('http://localhost:3000/add',{
+         method: "Post",
+         headers: {
+             "Content-Type": "application/json",
+             Accept: "application/json"
+         },
+       body:JSON.stringify(data)
+     }).then((res)=>{
+       return res.json()
+     }).then((data)=>{
+         
+         document.getElementById("result").value=data
+         
+     })
+    
+    }
+    function sub(){
+        let a=document.getElementById('num1').value
+        let b=document.getElementById('num2').value
+        if(isNaN(a)||isNaN(b)||a===''||b===''){
+         alert("Please Enter Number")
+         clearfun()
+         return 
+     }
+        let data={
+            x:a,
+            y:b
+        }
+        fetch('http://localhost:3000/sub',{
+            method:"POST",
+            headers:{
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body:JSON.stringify(data)
+        }).then((res)=>{
+            return res.json()
+        }).then((data)=>{
+            document.getElementById("result").value=data
+        })
+
+    }
+    function mult(){
+        let a=document.getElementById('num1').value
+        let b=document.getElementById('num2').value
+        if(isNaN(a)||isNaN(b)||a===''||b===''){
+            alert("Please Enter Number")
+            clearfun()
+            return
+        }
+        let data={
+            x:a,
+            y:b
+        }
+        fetch('http://localhost:3000/mult',{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+                Accept:"application/json"
+
+            },
+            body:JSON.stringify(data)
+        }).then((res)=>{
+            return res.json()
+        }).then((data)=>{
+            document.getElementById("result").value=data
+        })
+    }
+    function div(){
+        let a=document.getElementById("num1").value
+        let b=document.getElementById('num2').value
+        if(isNaN(a)||isNaN(b)||a===''||b===''){
+            alert("Please Enter Number")
+            clearfun()
+            return
+        }
+        let data={
+            x:a,
+            y:b
+        }
+        fetch('http://localhost:3000/div',{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+                Accept:"application/json"
+
+            },
+            body:JSON.stringify(data)
+        }).then((res)=>{
+            return res.json()
+        }).then((data)=>{
+            document.getElementById("result").value=data
+        })
+        
+    }
+    function clearfun(){
+        document.getElementById("num1").value=""
+        document.getElementById("num2").value=""
+        document.getElementById("result").value=""
+    }
+    </script>
+        
+</body>
+</html>
